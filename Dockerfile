@@ -49,7 +49,7 @@ RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
     && docker-php-ext-enable redis
 
 ## Swoole extension
-RUN wget http://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz -O /tmp/swoole.tar.tgz \
+RUN wget http://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz -O /tmp/swoole.tar.gz \
     && mkdir -p swoole \
     && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
     && rm swoole.tar.gz \
