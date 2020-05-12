@@ -35,12 +35,12 @@ RUN apk update \
     php7-xmlreader \
     php7-zip \
     php7-zlib
-
+USER root
 # Composer
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer \
-    && composer self-update --clean-backups \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar
+RUN mv composer.phar  /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # Redis extension
 RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
@@ -49,7 +49,7 @@ RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
     && docker-php-ext-enable redis
 
 ## Swoole extension
-RUN wget http://pecl.php.net/get/swoole-${PHP_REDIS}.tgz -O /tmp/swoole.tar.tgz \
+RUN wget http://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz -O /tmp/swoole.tar.tgz \
     && mkdir -p swoole \
     && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
     && rm swoole.tar.gz \
