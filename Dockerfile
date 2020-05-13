@@ -7,7 +7,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update \
     && apk add \
-    curl wget git zip unzip vim procps lsof tcpdump htop openssl openssl-dev gcc g++ autoconf make librdkafka-dev \
+    curl wget git zip unzip vim procps lsof tcpdump htop openssl openssl-dev gcc g++ autoconf make librdkafka-dev rabbitmq-c-dev \
     php7-bcmath \
     php7-ctype \
     php7-curl \
@@ -48,6 +48,9 @@ RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 # Kafka
 RUN pecl install rdkafka && docker-php-ext-enable rdkafka
+
+# Amqp
+RUN pecl install amqp && docker-php-ext-enable amqp
 
 # Redis extension
 RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
