@@ -75,8 +75,8 @@ php73:
     tty: true # 如果不启动服务，需要打开这个让镜像启动
     volumes:
       - ${APP_DIR}:/var/www/html/:rw
-      - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP72_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP73_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP73_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     restart: always
     cap_add:
       - SYS_PTRACE
@@ -84,6 +84,6 @@ php73:
 
 ```
 APP_DIR 项目根目录
-PHP72_PHP_CONF_FILE php.ini配置
-PHP72_FPM_CONF_FILE www.conf配置
+PHP73_PHP_CONF_FILE php.ini配置
+PHP73_FPM_CONF_FILE www.conf配置
 ```
