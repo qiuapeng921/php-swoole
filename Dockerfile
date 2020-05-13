@@ -24,6 +24,9 @@ RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar \
     && chmod +x /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
+# Amqp
+RUN pecl install amqp && docker-php-ext-enable amqp
+
 # Mcrypt
 RUN pecl install mcrypt && docker-php-ext-enable mcrypt
 
@@ -35,9 +38,6 @@ RUN pecl install rdkafka && docker-php-ext-enable rdkafka
 
 #Yaf
 RUN pecl install yaf && docker-php-ext-enable yaf
-
-# Amqp
-RUN pecl install amqp && docker-php-ext-enable amqp
 
 # Redis extension
 RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
