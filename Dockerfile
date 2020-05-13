@@ -36,6 +36,9 @@ RUN pecl install rdkafka && docker-php-ext-enable rdkafka
 #Yaf
 RUN pecl install yaf && docker-php-ext-enable yaf
 
+# Amqp
+RUN pecl install amqp && docker-php-ext-enable amqp
+
 # Redis extension
 RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
     && pecl install /tmp/redis.tar.tgz \
