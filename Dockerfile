@@ -16,7 +16,7 @@ RUN apk add curl wget git zip unzip vim procps lsof tcpdump htop gcc g++ autocon
     libzip libzip-dev
 
 # Extensions
-RUN docker-php-ext-install bcmath intl opcache pgsql pdo soap sockets zip
+RUN docker-php-ext-install bcmath intl opcache mysqli pgsql pdo pdo_mysql pdo_pgsql pdo_sqlite soap sockets zip
 
 # Composer
 RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar \
