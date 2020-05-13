@@ -1,7 +1,7 @@
 # `php-swoole`
 
 - 基于官方 `php:7.3-fpm-alpine` 镜像构建的 `php-swoole` 镜像,可用于`fpm`或`cli`
-- 附带 `composer`,`git`,`vim`,`git`,`zip`,`uzip`,`curl`,`wget`
+- 附带 `composer`,`vim`,`git`,`zip`,`uzip`,`curl`,`wget`
 
 # 已装扩展
 
