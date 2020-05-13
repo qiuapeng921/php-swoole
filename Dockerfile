@@ -40,6 +40,7 @@ RUN apk update \
 RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar
 RUN mv composer.phar  /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
+RUN composer self-update
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # Mongodb extension
