@@ -13,10 +13,11 @@ RUN apk add curl wget git zip unzip vim procps lsof tcpdump htop gcc g++ autocon
     libxml2 libxml2-dev \
     icu icu-dev \
     libpq postgresql-dev \
-    libzip libzip-dev
+    libzip libzip-dev \
+    rabbitmq-c rabbitmq-c-dev
 
 # Extensions
-RUN docker-php-ext-install bcmath intl opcache mysqli pgsql pdo pdo_mysql pdo_pgsql pdo_sqlite soap sockets zip
+RUN docker-php-ext-install bcmath intl opcache mysqli pgsql pdo pdo_mysql pdo_pgsql soap sockets zip
 
 # Composer
 RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar \
