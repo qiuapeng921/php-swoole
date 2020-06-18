@@ -6,7 +6,7 @@ ENV PHP_REDIS=5.2.2
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update
-RUN apk add curl wget git zip unzip vim procps lsof tcpdump htop gcc g++ autoconf make \
+RUN apk add wget git zip unzip vim lsof tcpdump htop gcc g++ autoconf make \
     openssl openssl-dev \
     librdkafka librdkafka-dev \
     libmcrypt libmcrypt-dev \
