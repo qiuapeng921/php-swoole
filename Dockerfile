@@ -7,7 +7,14 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update
 RUN apk add --no-cache curl wget vim gcc g++ autoconf make bash \
-    openssl librdkafka libmcrypt libzip
+    openssl openssl-dev \ 
+    librdkafka librdkafka-dev \ 
+    libmcrypt libmcrypt-dev \ 
+    libxml2 libxml2-dev \ 
+    icu icu-dev \ 
+    libpq postgresql-dev \ 
+    libzip libzip-dev \ 
+    rabbitmq-c rabbitmq-c-dev 
 
 # Extensions
 RUN docker-php-ext-install bcmath opcache mysqli pdo pdo_mysql sockets zip
