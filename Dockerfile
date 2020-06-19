@@ -1,23 +1,21 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine
 
-ENV SWOOLE_VERSION=4.5.1
+ENV SWOOLE_VERSION=4.5.2
 ENV PHP_REDIS=5.2.2
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update
-RUN apk add curl wget git zip unzip vim procps lsof tcpdump htop gcc g++ autoconf make \
+RUN apk add curl wget git zip unzip vim  gcc g++ autoconf make \
     openssl openssl-dev \
     librdkafka librdkafka-dev \
     libmcrypt libmcrypt-dev \
     libxml2 libxml2-dev \
     icu icu-dev \
-    libpq postgresql-dev \
     libzip libzip-dev \
-    rabbitmq-c rabbitmq-c-dev
 
 # Extensions
-RUN docker-php-ext-install bcmath intl opcache mysqli pgsql pdo pdo_mysql pdo_pgsql soap sockets zip
+RUN docker-php-ext-install bcmath intl opcache mysqli pdo pdo_mysql soap sockets zip
 
 # Composer
 RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar \
