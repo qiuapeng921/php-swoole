@@ -6,11 +6,8 @@ ENV PHP_REDIS=5.2.2
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update
-RUN apk add curl wget vim gcc g++ autoconf make \
-    openssl openssl-dev \
-    librdkafka librdkafka-dev \
-    libmcrypt libmcrypt-dev \
-    libzip libzip-dev
+RUN apk add --no-cache curl wget vim gcc g++ autoconf make bash \
+    openssl librdkafka libmcrypt libzip
 
 # Extensions
 RUN docker-php-ext-install bcmath opcache mysqli pdo pdo_mysql sockets zip
