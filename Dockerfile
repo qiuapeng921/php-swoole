@@ -16,6 +16,8 @@ RUN apk add --no-cache curl wget vim gcc g++ autoconf make bash \
     libzip libzip-dev \ 
     rabbitmq-c rabbitmq-c-dev 
 
+RUN echo "Asia/Shanghai" > /etc/timezone
+
 # Extensions
 RUN docker-php-ext-install bcmath opcache mysqli pdo pdo_mysql sockets zip
 
