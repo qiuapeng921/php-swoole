@@ -10,7 +10,6 @@ composer git curl wget git zip unzip vim procps lsof tcpdump htop
 ### 已装扩展
 
 ```
-amqp
 bcmath
 Core
 ctype
@@ -20,6 +19,7 @@ dom
 fileinfo
 filter
 ftp
+gd
 hash
 iconv
 intl
