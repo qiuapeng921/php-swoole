@@ -13,13 +13,12 @@ RUN apk add --no-cache curl wget vim gcc g++ autoconf make bash \
     libxml2 libxml2-dev \ 
     icu icu-dev \ 
     libpq postgresql-dev \ 
-    libzip libzip-dev \ 
-    rabbitmq-c rabbitmq-c-dev 
+    libzip libzip-dev
 
 RUN echo "Asia/Shanghai" > /etc/timezone
 
 # Extensions
-RUN docker-php-ext-install bcmath opcache mysqli pdo pdo_mysql sockets zip
+RUN docker-php-ext-install gd bcmath opcache mysqli pdo pdo_mysql sockets zip
 
 # Composer
 RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar \
