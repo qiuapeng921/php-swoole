@@ -4,7 +4,7 @@
 
 - 内置工具:
 ```
-composer git curl wget git zip unzip vim procps lsof tcpdump htop
+composer curl wget vim
 ```
 
 ### 已装扩展
@@ -22,7 +22,6 @@ ftp
 gd
 hash
 iconv
-intl
 json
 libxml
 mbstring
@@ -34,9 +33,7 @@ openssl
 pcre
 PDO
 pdo_mysql
-pdo_pgsql
 pdo_sqlite
-pgsql
 Phar
 posix
 rdkafka
@@ -45,7 +42,6 @@ redis
 Reflection
 session
 SimpleXML
-soap
 sockets
 sodium
 SPL
@@ -56,10 +52,12 @@ tokenizer
 xml
 xmlreader
 xmlwriter
-yaf
 Zend OPcache
 zip
 zlib
+
+[Zend Modules]
+Zend OPcache
 ```
 
 ### 使用方式
@@ -68,7 +66,7 @@ docker-compose.yml 配置
 ```
 version: '3'
 php73:
-    image: qiuapeng921/php-swoole
+    image: qiuapeng921/php-swoole:stable
     ports:
       - "9500:9500"
       - "9501:9501"

@@ -1,19 +1,19 @@
 FROM php:7.3-fpm-alpine
 
-ENV SWOOLE_VERSION=4.5.2
-ENV PHP_REDIS=5.2.2
+ENV SWOOLE_VERSION=4.5.3
+ENV PHP_REDIS=5.3.1
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update
-RUN apk add --no-cache curl wget vim gcc g++ autoconf make bash \
-    openssl openssl-dev \ 
-    librdkafka librdkafka-dev \ 
-    libmcrypt libmcrypt-dev \ 
-    libxml2 libxml2-dev \ 
-    icu icu-dev \ 
-    libpq postgresql-dev \ 
-    libzip libzip-dev
+RUN apk add --no-cache curl wget vim gcc g++ autoconf make \
+    openssl-dev \ 
+    librdkafka-dev \ 
+    libmcrypt-dev \ 
+    libxml2-dev \ 
+    icu-dev \ 
+    libzip-dev \
+    libpng-dev
 
 RUN echo "Asia/Shanghai" > /etc/timezone
 
