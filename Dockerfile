@@ -5,17 +5,17 @@ ENV PHP_REDIS=5.3.1
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
-RUN apk update
-RUN apk add --no-cache curl wget vim gcc g++ autoconf make \
-    openssl-dev \ 
-    librdkafka-dev \ 
-    libmcrypt-dev \ 
-    libxml2-dev \ 
-    icu-dev \ 
-    libzip-dev \
-    libpng-dev
-
 RUN echo "Asia/Shanghai" > /etc/timezone
+
+# update
+RUN set -ex \
+    && apk update \
+    && apk add --no-cache libstdc++ wget openssl  bash \
+    && apk add --no-cache --virtual .build-deps \
+    autoconf automake make g++ gcc dpkg-dev dpkg file pkgconf file re2c libtool \
+    libmcrypt-dev libxml2-dev icu-dev libzip-dev libpng-dev libc-dev zlib-dev \
+    libaio-dev openssl-dev \
+    pcre-dev php7-dev php7-pear
 
 # Extensions
 RUN docker-php-ext-install gd bcmath opcache mysqli pdo pdo_mysql sockets zip
@@ -26,20 +26,8 @@ RUN wget https://mirrors.cloud.tencent.com/composer/composer.phar \
     && chmod +x /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
-# Mcrypt
-RUN pecl install mcrypt && docker-php-ext-enable mcrypt
-
-# Mongodb extension
-RUN pecl install mongodb && docker-php-ext-enable mongodb
-
-# Kafka
-RUN pecl install rdkafka && docker-php-ext-enable rdkafka
-
-# Redis extension
-RUN wget http://pecl.php.net/get/redis-${PHP_REDIS}.tgz -O /tmp/redis.tar.tgz \
-    && pecl install /tmp/redis.tar.tgz \
-    && rm -rf /tmp/redis.tar.tgz \
-    && docker-php-ext-enable redis
+# Extension redis bcmath mongodb
+RUN pecl install redis mcrypt mongodb && docker-php-ext-enable redis mcrypt mongodb
 
 # Swoole extension
 RUN wget http://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz -O swoole.tar.gz \
@@ -47,14 +35,15 @@ RUN wget http://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz -O swoole.tar.gz \
     && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
     && rm swoole.tar.gz \
     && ( \
-    cd swoole \
+        cd swoole \
         && phpize \
-        && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
-        && make -j$(nproc) \
-        && make install \
+        && ./configure --enable-mysqlnd --enable-openssl \
+        && make -s -j$(nproc) && make install \
     ) \
     && rm -r swoole \
     && docker-php-ext-enable swoole
+
+RUN apk del .build-deps && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
 
 RUN php -m
 
