@@ -45,7 +45,7 @@ RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc \
 
     # 删除系统扩展
     && apk del .build-deps \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
+    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && php -m
 
 EXPOSE 9500 9501 9502 9503 9504
