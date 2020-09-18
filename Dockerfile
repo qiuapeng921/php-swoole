@@ -7,19 +7,19 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN echo "Asia/Shanghai" > /etc/timezone
 
-ENV Extensions "autoconf automake make g++ gcc dpkg-dev dpkg pkgconf file re2c libtool libmcrypt-dev libxml2-dev icu-dev libzip-dev libpng-dev libc-dev zlib-dev libaio-dev openssl-dev librdkafka-dev pcre-dev php7-dev php7-pear"
-
 # update
 RUN set -ex \
     && apk update \
-    && apk add --no-cache libstdc++ wget openssl  bash
+    && apk add --no-cache libstdc++ wget openssl bash \
+    libmcrypt-dev libzip-dev libpng-dev libc-dev zlib-dev librdkafka-dev
 
-RUN apk add --no-cache --virtual .build-deps ${Extensions} \
+RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc \
+    libtool dpkg-dev dpkg pkgconf file re2c pcre-dev php7-dev php7-pear openssl-dev \
 
     # 安装php常用扩展
     && docker-php-ext-install gd bcmath opcache mysqli pdo pdo_mysql sockets zip \
 
-    # Extension redis bcmath mongodb
+    # Extension redis bcmath mongodb rdkafka
     && pecl install redis mcrypt mongodb rdkafka \
     && docker-php-ext-enable redis mcrypt mongodb rdkafka \
 
@@ -46,5 +46,6 @@ RUN apk add --no-cache --virtual .build-deps ${Extensions} \
     # 删除系统扩展
     && apk del .build-deps \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
+    && php -m
 
 EXPOSE 9500 9501 9502 9503 9504
