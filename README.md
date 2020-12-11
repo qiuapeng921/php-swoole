@@ -5,6 +5,7 @@
 ### 已装扩展
 
 ```
+[PHP Modules]
 bcmath
 Core
 ctype
@@ -21,6 +22,7 @@ json
 libxml
 mbstring
 mcrypt
+mongodb
 mysqli
 mysqlnd
 openssl
@@ -30,6 +32,7 @@ pdo_mysql
 pdo_sqlite
 Phar
 posix
+rdkafka
 readline
 redis
 Reflection
@@ -40,6 +43,7 @@ sodium
 SPL
 sqlite3
 standard
+swoole
 tokenizer
 xml
 xmlreader
