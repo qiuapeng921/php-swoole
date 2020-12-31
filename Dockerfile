@@ -2,6 +2,7 @@ FROM php:7.3-fpm-alpine
 
 ENV SWOOLE_VERSION=4.5.3
 ENV PHP_REDIS=5.3.1
+ENV XLSWRITER_VERSION=1.3.6
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
@@ -13,13 +14,13 @@ RUN set -ex \
     && apk add --no-cache libstdc++ wget openssl bash \
     libmcrypt-dev libzip-dev libpng-dev libc-dev zlib-dev librdkafka-dev
 
-RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc \
+RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc re2c \
     libtool dpkg-dev dpkg pkgconf file re2c pcre-dev php7-dev php7-pear openssl-dev \
 
     # 安装php常用扩展
     && docker-php-ext-install gd bcmath opcache mysqli pdo pdo_mysql sockets zip \
 
-    # Extension redis bcmath mongodb rdkafka
+    # Extension redis mcrypt mongodb rdkafka
     && pecl install redis mcrypt mongodb rdkafka \
     && docker-php-ext-enable redis mcrypt mongodb rdkafka \
 
@@ -37,11 +38,20 @@ RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc \
     && ( \
         cd swoole \
         && phpize \
-        && ./configure --enable-mysqlnd --enable-openssl \
-        && make -s -j$(nproc) && make install \
+        && ./configure --enable-mysqlnd --enable-http2 --enable-openssl \
+        && make && make install \
     ) \
     && rm -r swoole \
     && docker-php-ext-enable swoole \
+
+    # 安装 Xlswriter
+    && wget http://pecl.php.net/get/xlswriter-${XLSWRITER_VERSION}.tgz -O xlswriter.tar.gz \
+    && mkdir -p xlswriter \
+    && tar -xf xlswriter.tar.gz -C xlswriter --strip-components=1 \
+    && rm xlswriter.tar.gz \
+    && cd xlswriter \
+    && phpize && ./configure --enable-reader && make && make install \
+    && docker-php-ext-enable xlswriter \
 
     # 删除系统扩展
     && apk del .build-deps \
