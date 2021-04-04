@@ -12,11 +12,14 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN set -ex \
     && apk update \
     && apk add --no-cache libstdc++ wget openssl bash \
-    libmcrypt-dev libzip-dev libpng-dev libc-dev zlib-dev librdkafka-dev
+    libmcrypt-dev libzip-dev libpng-dev libc-dev zlib-dev librdkafka-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libpng libpng-dev \
 
 RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc re2c \
     libtool dpkg-dev dpkg pkgconf file re2c pcre-dev php7-dev php7-pear openssl-dev \
 
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \ 
+    
     # 安装php常用扩展
     && docker-php-ext-install gd bcmath opcache mysqli pdo pdo_mysql sockets zip \
 
