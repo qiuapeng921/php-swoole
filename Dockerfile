@@ -13,7 +13,7 @@ RUN set -ex \
     && apk update \
     && apk add --no-cache libstdc++ wget openssl bash \
     libmcrypt-dev libzip-dev libpng-dev libc-dev zlib-dev librdkafka-dev \
-    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libpng libpng-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libpng libpng-dev
 
 RUN apk add --no-cache --virtual .build-deps autoconf automake make g++ gcc re2c \
     libtool dpkg-dev dpkg pkgconf file re2c pcre-dev php7-dev php7-pear openssl-dev \
